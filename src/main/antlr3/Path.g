@@ -5,6 +5,8 @@ grammar Path;
   Current functionality should allow any set of actions to explore and select XPath
   nodes and attributes in the forward axis.
 
+  The grammar is originally taken from MicroXPath.g
+  
   This translation is based upon the MicroXPath grammar definition.
   http://senzhang.netfirms.com/mxpath.htm
 
@@ -14,7 +16,17 @@ grammar Path;
   Bugs and comments welcome: jjzazuet@gmail.com
  */
 
-options { output = ast; }
+options { 
+  output = AST;
+  ASTLabelType=CommonTree; // type of $stat.tree ref etc... 
+}
+
+@lexer::header {
+  package org.technbolts.hdo.path;
+}
+@parser::header {
+  package org.technbolts.hdo.path;
+}
 
 // ---------------- Parser Rules ---------------- //
 xPath
