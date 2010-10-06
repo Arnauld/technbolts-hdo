@@ -8,12 +8,18 @@ class MailProject(info: ProjectInfo) extends DefaultProject(info) {
   import org.antlr.{Tool=>AntlrTool}
 
   lazy val antlrGen = task {
-      val antlr = new AntlrTool(Array("-o", "src/main/generated-java", "src/main/antlr3/Path.g"))
+      val antlr = new AntlrTool(Array("-o", "src/main/generated-java/org/technbolts/hdo/path/", "src/main/antlr3/Path.g"))
       antlr.process
       None
     } describedAs "Generate Antlr files."
   
   override def compileAction = super.compileAction dependsOn(antlrGen)
+
+  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   * add generated-java source folder
+   * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  def mainGeneratedJavaSourcePath = mainSourcePath / "generated-java"
+  override def mainSourceRoots = (mainGeneratedJavaSourcePath##) +++ (mainJavaSourcePath##) +++ (mainScalaSourcePath##)
 
   /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    * dependencies

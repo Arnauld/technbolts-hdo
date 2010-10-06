@@ -33,6 +33,7 @@ target
 lib_managed
 src_managed
 project/boot
+generated-java/
 
 # db
 lift_proto*

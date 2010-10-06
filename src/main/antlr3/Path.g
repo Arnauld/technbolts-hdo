@@ -83,9 +83,12 @@ Letter
        '\uf900'..'\ufaff'
     ;
 
-IntegerLiteral :  ('0'..'9')+;
-DecimalLiteral :  ('.' ('0'..'9')+)  | (('0'..'9')+ '.' '0'..'9'*);
-DoubleLiteral  :  (('.' ('0'..'9')+) | (('0'..'9')+ ('.' '0'..'9'*)?)) ('e' | 'E') ('+' | '-')? ('0'..'9')+;
+fragment Digit
+	:	'0'..'9';
+	
+IntegerLiteral :  Digit+;
+DecimalLiteral :  ('.' Digit+) | (Digit+  '.' Digit*);
+DoubleLiteral  : (('.' Digit+) | (Digit+ ('.' Digit*)?)) ('e' | 'E') ('+' | '-')? Digit+;
 
 StringLiteral : '"' ~('"')* '"' | '\'' ~('\'')* '\'';
 
